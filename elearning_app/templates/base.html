@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}SAT Fergana - SAT hub in Fergana{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Elegant serif + modern sans-serif combination -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Optional: Add Playfair Display for extra elegance -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Custom Color Override -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+    <!-- Page-specific styles -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <!-- Rounded logo with proper styling -->
+        <div class="logo-wrapper me-3">
+            <img src="{% static 'img/logo.jpg' %}" alt="SAT Fergana Logo" class="rounded-logo">
+        </div>
+        <h2 class="m-0 text-primary">SAT Fergana</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            {% url 'home' as home_url %}
+            {% url 'about' as about_url %}
+            {% url 'courses' as courses_url %}
+            {% url 'team' as team_url %}
+            {% url 'testimonials' as testimonials_url %}
+            {% url 'contact' as contact_url %}
+
+            <a href="{{ home_url }}" class="nav-item nav-link {% if request.path == home_url %}active{% endif %}">Home</a>
+            <a href="{{ about_url }}" class="nav-item nav-link {% if request.path == about_url %}active{% endif %}">About</a>
+            <a href="{{ courses_url }}" class="nav-item nav-link {% if request.path == courses_url %}active{% endif %}">Courses</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle {% if request.path == team_url or request.path == testimonials_url %}active{% endif %}" data-bs-toggle="dropdown">Pages</a>
+                <div class="dropdown-menu fade-down m-0">
+                    <a href="{{ team_url }}" class="dropdown-item {% if request.path == team_url %}active{% endif %}">Our Team</a>
+                    <a href="{{ testimonials_url }}" class="dropdown-item {% if request.path == testimonials_url %}active{% endif %}">Testimonial</a>
+                </div>
+            </div>
+            <a href="{{ contact_url }}" class="nav-item nav-link {% if request.path == contact_url %}active{% endif %}">Contact</a>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+
+<style>
+    /* Logo styling */
+    .logo-wrapper {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .rounded-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 50%; /* Makes it perfectly round */
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Alternative border radius options (choose one): */
+    .rounded-logo {
+        /* Option 1: Perfect circle (50%) */
+        border-radius: 50%;
+
+        /* Option 2: Slightly rounded (8px) */
+        /* border-radius: 8px; */
+
+        /* Option 3: Pill shape (25px) */
+        /* border-radius: 25px; */
+
+        /* Option 4: Modern rounded corners (10px) */
+        /* border-radius: 10px; */
+    }
+
+    /* Hover effects */
+    .logo-wrapper:hover .rounded-logo {
+        transform: scale(1.05);
+        border-color: #007bff;
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    }
+
+    /* Optional: Add a subtle animation on page load */
+    @keyframes logoFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .rounded-logo {
+        animation: logoFadeIn 0.5s ease-out;
+    }
+
+    /* Active state styling */
+    .nav-link.active {
+        color: #007bff !important;
+        font-weight: 600;
+        position: relative;
+    }
+
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #007bff;
+        border-radius: 1px;
+    }
+</style>
+
+<style>
+    .logo-container {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    .logo-img:hover {
+        transform: scale(1.05);
+    }
+
+    .navbar-brand:hover .logo-img {
+        transform: scale(1.05);
+    }
+
+    .nav-link.active {
+        color: #007bff !important;
+        font-weight: 600;
+    }
+
+    .dropdown-item.active {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+    <!-- Navbar End -->
+
+    <!-- Page Header Start -->
+    {% block page_header %}{% endblock %}
+    <!-- Page Header End -->
+
+    <!-- Main Content Start -->
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Main Content End -->
+    <br>
+    <br>
+
+    <!-- Footer Start -->
+<!-- Footer Start - Minimal Version -->
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Logo and Name -->
+            <div class="col-lg-4 mb-3 mb-lg-0">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'img/logo.jpg' %}" alt="SAT Fergana Logo"
+                         class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                    <h5 class="text-white mb-0">SAT Fergana</h5>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'home' %}" class="text-white-50 text-decoration-none">Home</a>
+                    <a href="{% url 'courses' %}" class="text-white-50 text-decoration-none">Courses</a>
+                    <a href="{% url 'contact' %}" class="text-white-50 text-decoration-none">Contact</a>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-lg-4 text-center text-lg-end">
+                <div class="d-flex justify-content-center justify-content-lg-end gap-2">
+                    <a href="#" class="text-white-50"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="text-white-50"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white-50"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider and Copyright -->
+        <hr class="my-3 border-secondary">
+        <div class="text-center">
+            <small class="text-white-50">
+                &copy; 2024 SAT Fergana. All rights reserved.
+            </small>
+        </div>
+    </div>
+</footer>
+<!-- Footer End -->
+
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Page-specific JavaScript -->
+    {% block extra_js %}{% endblock %}
+
+    <!-- Counter Animation -->
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="counter-up"]').counterUp({
+                delay: 10,
+                time: 2000
+            });
+        });
+    </script>
+</body>
+</html>

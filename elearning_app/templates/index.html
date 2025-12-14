@@ -1,0 +1,727 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}SAT Fergana - SAT hub in Fergana{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Index page specific styles */
+    .header-carousel,
+    .header-carousel .owl-stage-outer,
+    .header-carousel .owl-stage,
+    .header-carousel .owl-item {
+        width: 100vw;
+    }
+
+    .header-carousel .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Carousel Start -->
+<div class="container-fluid p-0 mb-5">
+    <div class="owl-carousel header-carousel position-relative vh-100">
+        {% if banners %}
+            {% for banner in banners %}
+            <div class="owl-carousel-item position-relative vh-100">
+                {% if banner.image %}
+                <!-- Background image with parallax effect -->
+                <div class="carousel-background"
+                     style="background-image: url('{{ banner.image.url }}'); height: 100vh; width: 100%; background-attachment: fixed; background-size: cover; background-position: center; animation: slideBackground 20s infinite linear;">
+                </div>
+                {% else %}
+                <div class="carousel-background"
+                     style="background-image: url('{% static 'img/carousel-1.jpg' %}'); height: 100vh; width: 100%; background-attachment: fixed; background-size: cover; background-position: center; animation: slideBackground 20s infinite linear;">
+                </div>
+                {% endif %}
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                {% if banner.title %}
+                                <h5 class="text-white-50 text-uppercase mb-3 animated slideInDown">{{ banner.title }}</h5>
+                                {% endif %}
+                                {% if banner.subtitle %}
+                                <h1 class="display-2 text-white animated slideInDown fw-bold">{{ banner.subtitle }}</h1>
+                                {% endif %}
+                                {% if banner.description %}
+                                <p class="fs-4 text-white mb-4 pb-2">{{ banner.description }}</p>
+                                {% endif %}
+                                <div class="d-flex">
+                                    {% if banner.button_text %}
+                                    <a href="{{ banner.button_url|default:'#' }}" class="btn btn-primary btn-lg py-md-3 px-md-5 me-3 animated slideInLeft">
+                                        {{ banner.button_text }}
+                                    </a>
+                                    {% endif %}
+                                    {% if banner.secondary_button_text %}
+                                    <a href="{{ banner.secondary_button_url|default:'#' }}" class="btn btn-outline-light btn-lg py-md-3 px-md-5 animated slideInRight">
+                                        {{ banner.secondary_button_text }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Default banner if no banners exist -->
+            <div class="owl-carousel-item position-relative vh-100">
+                <!-- Background with parallax and movement -->
+                <div class="carousel-background"
+                     style="background-image: url('{% static 'img/carousel-1.jpg' %}'); height: 100vh; width: 100%; background-attachment: fixed; background-size: cover; background-position: center; animation: slideBackground 20s infinite linear;">
+                </div>
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best SAT Preparation</h5>
+                                <h1 class="display-2 text-white animated slideInDown fw-bold">Transform Your SAT Score in Fergana</h1>
+                                <p class="fs-4 text-white mb-4 pb-2">Expert-led courses, personalized guidance, and proven strategies to help you achieve your target SAT score.</p>
+                                <div class="d-flex">
+                                    <a href="{% url 'about' %}" class="btn btn-primary btn-lg py-md-3 px-md-5 me-3 animated slideInLeft">Learn More</a>
+                                    <a href="{% url 'courses' %}" class="btn btn-outline-light btn-lg py-md-3 px-md-5 animated slideInRight">Start Learning</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative vh-100">
+                <div class="carousel-background"
+                     style="background-image: url('{% static 'img/carousel-2.jpg' %}'); height: 100vh; width: 100%; background-attachment: fixed; background-size: cover; background-position: center; animation: slideBackground 20s infinite linear;">
+                </div>
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Expert Instructors</h5>
+                                <h1 class="display-2 text-white animated slideInDown fw-bold">Learn From Top SAT Experts</h1>
+                                <p class="fs-4 text-white mb-4 pb-2">Our instructors have helped hundreds of students achieve remarkable SAT score improvements through personalized coaching.</p>
+                                <div class="d-flex">
+                                    <a href="{% url 'team' %}" class="btn btn-primary btn-lg py-md-3 px-md-5 me-3 animated slideInLeft">Meet Our Team</a>
+                                    <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg py-md-3 px-md-5 animated slideInRight">Get in Touch!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Third default banner -->
+            <div class="owl-carousel-item position-relative vh-100">
+                <div class="carousel-background"
+                     style="background-image: url('{% static 'img/carousel-3.jpg' %}'); height: 100vh; width: 100%; background-attachment: fixed; background-size: cover; background-position: center; animation: slideBackground 20s infinite linear;">
+                </div>
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Proven Results</h5>
+                                <h1 class="display-2 text-white animated slideInDown fw-bold">Average Score Improvement: 250+ Points</h1>
+                                <p class="fs-4 text-white mb-4 pb-2">Join the hundreds of successful students who have achieved their dream SAT scores with our structured program.</p>
+                                <div class="d-flex">
+                                    <a href="{% url 'courses' %}" class="btn btn-primary btn-lg py-md-3 px-md-5 me-3 animated slideInLeft">View Courses</a>
+                                    <a href="{% url 'testimonials' %}" class="btn btn-outline-light btn-lg py-md-3 px-md-5 animated slideInRight">See Results</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<!-- Carousel End -->
+
+<style>
+    /* Full viewport height */
+    .vh-100 {
+        height: 100vh;
+        min-height: 600px;
+    }
+
+    /* Moving background animation */
+    @keyframes slideBackground {
+        0% {
+            background-position: center center;
+            transform: scale(1);
+        }
+        25% {
+            background-position: 10% center;
+            transform: scale(1.05);
+        }
+        50% {
+            background-position: center center;
+            transform: scale(1);
+        }
+        75% {
+            background-position: 90% center;
+            transform: scale(1.05);
+        }
+        100% {
+            background-position: center center;
+            transform: scale(1);
+        }
+    }
+
+    /* Alternative subtle zoom effect */
+    @keyframes zoomBackground {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(1.1);
+        }
+    }
+
+    /* Parallax scroll effect */
+    .parallax-bg {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
+    /* Carousel item styling */
+    .owl-carousel-item {
+        overflow: hidden;
+    }
+
+    /* Content overlay */
+    .position-absolute {
+        z-index: 2;
+    }
+
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+        .vh-100 {
+            height: 70vh;
+            min-height: 500px;
+        }
+
+        .display-2 {
+            font-size: 2.5rem;
+        }
+
+        .fs-4 {
+            font-size: 1.1rem;
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem !important;
+        }
+
+        /* Disable animation on mobile for performance */
+        .carousel-background {
+            animation: none !important;
+            background-attachment: scroll !important;
+        }
+    }
+
+    /* For better performance on mobile */
+    @media (max-width: 768px) {
+        .carousel-background {
+            animation: none !important;
+        }
+    }
+
+    /* Add loading state */
+    .carousel-background {
+        transition: transform 10s ease-out;
+        will-change: transform;
+    }
+
+    /* Navigation arrows */
+    .owl-carousel .owl-nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        transform: translateY(-50%);
+        z-index: 10;
+    }
+
+    .owl-carousel .owl-nav button {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .owl-carousel .owl-nav button:hover {
+        background: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(1.1);
+    }
+</style>
+
+<script>
+    // Initialize carousel with full screen settings
+    $(document).ready(function(){
+        if($('.header-carousel').length){
+            $('.header-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 8000, // Longer timeout for full screen
+                autoplayHoverPause: true,
+                nav: true,
+                navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>'],
+                smartSpeed: 1000,
+                dots: true,
+                dotsEach: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    }
+                }
+            });
+        }
+
+        // Pause animation on hover for better UX
+        $('.owl-carousel-item').hover(
+            function() {
+                $(this).find('.carousel-background').css('animation-play-state', 'paused');
+            },
+            function() {
+                $(this).find('.carousel-background').css('animation-play-state', 'running');
+            }
+        );
+
+        // Adjust carousel height on window resize
+        function adjustCarouselHeight() {
+            var windowHeight = $(window).height();
+            $('.vh-100').css('height', windowHeight + 'px');
+        }
+
+        // Initial adjustment
+        adjustCarouselHeight();
+
+        // Adjust on resize
+        $(window).resize(function(){
+            adjustCarouselHeight();
+        });
+    });
+</script>
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                            <h5 class="mb-3">Skilled Instructors</h5>
+                            <p>Learn from industry experts with years of practical experience in their fields.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                            <h5 class="mb-3">Online Classes</h5>
+                            <p>Access courses from anywhere with flexible schedules that fit your lifestyle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-certificate text-primary mb-4"></i>
+                            <h5 class="mb-3">Certification</h5>
+                            <p>Get internationally recognized certificates that validate your SAT preparation and boost your college applications.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">Lifetime Access</h5>
+                            <p>Enjoy lifetime access to course materials, practice tests, and updates to stay prepared for the SAT.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+<!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Instructors</h6>
+                <h1 class="mb-5">Meet Our Expert Instructors</h1>
+            </div>
+            <div class="row g-4">
+                {% for instructor in featured_instructors %}
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden" style="height: 250px;">
+                            {% if instructor.profile_picture %}
+                            <img class="img-fluid w-100 h-100" src="{{ instructor.profile_picture.url }}" alt="{{ instructor.name }}" style="object-fit: cover;">
+                            {% else %}
+                            <img class="img-fluid w-100 h-100" src="{% static 'img/team-'|add:forloop.counter|add:'.jpg' %}" alt="{{ instructor.name }}" style="object-fit: cover;">
+                            {% endif %}
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                                {% if instructor.telegram %}
+                                <a class="btn btn-sm-square btn-primary mx-1" href="{{ instructor.telegram }}" target="_blank"><i class="fab fa-telegram"></i></a>
+                                {% endif %}
+                                {% if instructor.twitter %}
+                                <a class="btn btn-sm-square btn-primary mx-1" href="{{ instructor.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                {% endif %}
+                                {% if instructor.instagram %}
+                                <a class="btn btn-sm-square btn-primary mx-1" href="{{ instructor.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                {% endif %}
+                                {% if instructor.linkedin %}
+                                <a class="btn btn-sm-square btn-primary mx-1" href="{{ instructor.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-1">{{ instructor.name }}</h5>
+                            <small class="text-primary">{{ instructor.designation }}</small>
+                            {% if instructor.experience %}
+                            <p class="mb-0 mt-2"><small><i class="fa fa-briefcase me-1"></i> {{ instructor.experience }} of experience</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No instructors available at the moment. Check back soon!</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+                <a class="btn btn-primary py-3 px-5" href="{% url 'team' %}">View All Instructors</a>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="text-center">
+            <h6 class="section-title bg-white text-center text-primary px-3">Testimonials</h6>
+            <h1 class="mb-5">What Our Students Say!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel position-relative">
+            {% for testimonial in featured_testimonials %}
+            <div class="testimonial-item text-center">
+                <div class="testimonial-inner">
+                    {% if testimonial.photo %}
+                    <img class="border rounded-circle p-2 mx-auto mb-3" src="{{ testimonial.photo.url }}"
+                         style="width: 80px; height: 80px; object-fit: cover;">
+                    {% else %}
+                    <img class="border rounded-circle p-2 mx-auto mb-3"
+                         src="{% static 'img/testimonial-'|add:forloop.counter|add:'.jpg' %}"
+                         style="width: 80px; height: 80px;">
+                    {% endif %}
+                    <h5 class="mb-1">{{ testimonial.name }}</h5>
+                    <p class="text-muted mb-3">{{ testimonial.profession|default:"Student" }}</p>
+                    <div class="testimonial-text bg-light text-center p-4 rounded shadow-sm">
+                        <div class="mb-3">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= testimonial.rating %}
+                            <small class="fa fa-star text-warning"></small>
+                            {% else %}
+                            <small class="fa fa-star text-secondary"></small>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <p class="mb-0 fst-italic">"{{ testimonial.message|truncatechars:150 }}"</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            {% for i in "1234" %}
+            <div class="testimonial-item text-center">
+                <div class="testimonial-inner">
+                    <img class="border rounded-circle p-2 mx-auto mb-3"
+                         src="{% static 'img/testimonial-'|add:forloop.counter|add:'.jpg' %}"
+                         style="width: 80px; height: 80px;">
+                    <h5 class="mb-1">Student Name</h5>
+                    <p class="text-muted mb-3">Student</p>
+                    <div class="testimonial-text bg-light text-center p-4 rounded shadow-sm">
+                        <div class="mb-3">
+                            {% for i in "12345" %}
+                            <small class="fa fa-star text-warning"></small>
+                            {% endfor %}
+                        </div>
+                        <p class="mb-0 fst-italic">"Great learning experience! The courses are well-structured and the instructors are very helpful."</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a class="btn btn-primary py-3 px-5" href="{% url 'testimonials' %}">View All Testimonials</a>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+<style>
+    /* Testimonial spacing improvements */
+    .testimonial-inner {
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .testimonial-item {
+        margin: 15px;
+        padding: 10px;
+    }
+
+    .owl-carousel .owl-stage-outer {
+        padding: 20px 0;
+    }
+
+    .testimonial-text {
+        margin-top: 15px;
+        position: relative;
+        min-height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .testimonial-text::before {
+        content: '"';
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-size: 60px;
+        color: rgba(0, 123, 255, 0.1);
+        font-family: Georgia, serif;
+    }
+
+    /* Better spacing for carousel items */
+    .owl-carousel .owl-item {
+        padding: 0 15px;
+    }
+
+    /* Add hover effect for better visual separation */
+    .testimonial-item:hover .testimonial-inner {
+        transform: translateY(-5px);
+    }
+
+    /* Adjust carousel dots position */
+    .owl-carousel .owl-dots {
+        margin-top: 40px !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .testimonial-item {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .owl-carousel .owl-item {
+            padding: 0 10px;
+        }
+
+        .testimonial-text {
+            min-height: 160px;
+        }
+    }
+</style>
+
+<script>
+    // Update the testimonial carousel initialization with better spacing
+    $(document).ready(function(){
+        if($('.testimonial-carousel').length){
+            $('.testimonial-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 40,  // Increased margin between items
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,  // Increased to 5 seconds
+                autoplayHoverPause: true,
+                center: false,
+                responsive: {
+                    0: {
+                        items: 1,
+                        margin: 20
+                    },
+                    576: {
+                        items: 1,
+                        margin: 30
+                    },
+                    768: {
+                        items: 2,
+                        margin: 30
+                    },
+                    992: {
+                        items: 3,
+                        margin: 40
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                <h1 class="mb-5">Popular Courses</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% for course in featured_courses %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                    <div class="course-item bg-light">
+                        <div class="position-relative overflow-hidden" style="height: 200px;">
+                            {% if course.thumbnail %}
+                            <img class="img-fluid w-100 h-100" src="{{ course.thumbnail.url }}" alt="{{ course.title }}"
+                                 style="object-fit: cover;">
+                            {% else %}
+                            <img class="img-fluid w-100 h-100" src="{% static 'img/course-'|add:forloop.counter|add:'.jpg' %}"
+                                 alt="{{ course.title }}" style="object-fit: cover;">
+                            {% endif %}
+
+                            <!-- Discount Badge -->
+                            {% if course.is_discounted %}
+                            <div class="position-absolute top-0 start-0 m-2">
+                                <span class="badge bg-danger">{{ course.discount_percentage }}% OFF</span>
+                            </div>
+                            {% endif %}
+
+                            <!-- Action Buttons - REMOVED READ MORE, ONLY JOIN NOW -->
+                            <div class="position-absolute bottom-0 start-0 w-100 d-flex justify-content-center p-3"
+                                 style="background: rgba(24, 29, 56, 0.7);">
+                                <a href="{% url 'contact' %}" class="btn btn-primary btn-lg px-4" style="border-radius: 30px;">
+                                    Join Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Course Details -->
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-primary mb-0">${{ course.current_price }}</h4>
+                                {% if course.price > course.current_price %}
+                                <small class="text-muted text-decoration-line-through">${{ course.price }}</small>
+                                {% endif %}
+                            </div>
+
+                            <!-- REMOVED: Rating section -->
+                            <!-- REMOVED: Stars and rating count -->
+
+                            <!-- Course Title -->
+                            <h5 class="mb-3">{{ course.title }}</h5>
+
+                            <!-- Short Description -->
+                            <p class="mb-3 text-muted">{{ course.short_description|truncatechars:100 }}</p>
+                        </div>
+
+                        <!-- REMOVED: Course Metadata section (teacher, hours, students) -->
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p class="text-muted">No courses available at the moment. Check back soon!</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+                <a class="btn btn-primary py-3 px-5" href="{% url 'courses' %}">View All Courses</a>
+            </div>
+        </div>
+    </div>
+    <!-- Courses End -->
+
+
+    <!-- CTA Start -->
+    <!-- CTA Start - Simple Version -->
+    <div class="container-xxl py-5 bg-primary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-start mb-4 mb-lg-0">
+                    <h1 class="text-white mb-3">Ready to Start Your Learning Journey?</h1>
+                    <p class="text-white mb-0">Join hundreds of students who have boosted their SAT scores with our courses.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <a class="btn btn-light py-3 px-5 rounded-pill fw-bold" href="{% url 'contact' %}">
+                        <i class="fas fa-paper-plane me-2"></i>Get Started
+                    </a>
+                    <p class="text-white-50 small mt-3">
+                        <i class="fas fa-check-circle me-1"></i> Free consultation included
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CTA End -->
+    <!-- CTA End -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Index page specific JavaScript
+    $(document).ready(function(){
+        // Initialize carousel if needed
+        if($('.header-carousel').length){
+            $('.header-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                nav: true,
+                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>']
+            });
+        }
+
+        // Initialize testimonial carousel
+        if($('.testimonial-carousel').length){
+            $('.testimonial-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 25,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 4000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
